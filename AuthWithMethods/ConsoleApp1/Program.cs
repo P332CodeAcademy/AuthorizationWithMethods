@@ -6,52 +6,143 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-
             Console.WriteLine("Welcome to employee adder system");
             Console.WriteLine();
 
-            Console.Write("Please enter the name:");
-            string name = Console.ReadLine();
+            string name = string.Empty;
+            string surname = string.Empty;
+            string fatherName = string.Empty;
+            string pinCode = string.Empty;
+            string phoneNum = string.Empty;
+            bool check = false;
+            int salary = 0;
+            byte age = 0;
 
-            Console.Write("Please enter the surname:");
-            string surname = Console.ReadLine();
+            #region 1
 
-            Console.Write("Please enter the father's name:");
-            string fatherName = Console.ReadLine();
+            //    Console.Write("Please enter the name:");
+            //    string name = Console.ReadLine();
 
-            Console.Write("Please enter the age:");
-            byte age = byte.Parse(Console.ReadLine());
+            //    Console.Write("Please enter the surname:");
+            //    string surname = Console.ReadLine();
 
-            Console.Write("Please enter the PIN-code:");
-            string pinCode = Console.ReadLine();
+            //    Console.Write("Please enter the father's name:");
+            //    string fatherName = Console.ReadLine();
 
-            Console.Write("Please enter the phone number:");
-            string phoneNum = Console.ReadLine();
+            //    Console.Write("Please enter the age:");
+            //    byte age = byte.Parse(Console.ReadLine());
 
+            //    Console.Write("Please enter the PIN-code:");
+            //    string pinCode = Console.ReadLine();
 
-            Console.WriteLine("Please Select the position");
-            PositionChoicer();
-
-            Console.WriteLine("Please Select the salary");
-            int salary=int.Parse(Console.ReadLine());
+            //    Console.Write("Please enter the phone number:");
+            //    string phoneNum = Console.ReadLine();
 
 
-            if (NameChecker(ref name) is true 
-                && SurnameChecker(ref surname) is true 
-                && FatherNameChecker(ref fatherName) is true 
-                && AgeChecker(ref age) is true 
-                && PinChecker(ref pinCode) is true 
-                && PhoneNumChecker(ref phoneNum) is true 
-                && SalaryChecker(ref salary) is true)
+            //    Console.WriteLine("Please Select the position");
+            //    PositionChoicer();
+
+            //    Console.WriteLine("Please Select the salary");
+            //    int salary = int.Parse(Console.ReadLine());
+
+
+            //    if (NameChecker(ref name) is true
+            //        && SurnameChecker(ref surname) is true
+            //        && FatherNameChecker(ref fatherName) is true
+            //        && AgeChecker(ref age) is true
+            //        && PinChecker(ref pinCode) is true
+            //        && PhoneNumChecker(ref phoneNum) is true
+            //        && SalaryChecker(ref salary) is true)
+            //    {
+            //        Console.WriteLine($"{name},{surname} has been added");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("smth went wrong");
+            //    }
+
+            #endregion
+
+            do
             {
-                Console.WriteLine($"{name},{surname} has been added");
-            }
-            else
+                Console.Write("Please enter the name:");
+                name = Console.ReadLine();
+
+            } while (NameChecker(ref name) is false);
+
+            do
             {
-                Console.WriteLine("smth went wrong");
-            }
+                Console.Write("Please enter the surname:");
+                surname = Console.ReadLine();
+
+            } while (SurnameChecker(ref surname) is false);
+
+            do
+            {
+                Console.Write("Enter father's name:");
+                fatherName = Console.ReadLine();
+
+            } while (FatherNameChecker(ref fatherName) is false);
+
+
+            do
+            {
+                Console.Write("Please enter the age:");
+                try
+                {
+                    age = byte.Parse(Console.ReadLine());
+                    check = true;
+                }
+                catch
+                {
+                    check = false;
+                }
+
+            } while (AgeChecker(ref age) is false || check is false);
+
+            do
+            {
+                Console.WriteLine("Enter the PIN-code");
+                pinCode = Console.ReadLine();
+
+            } while (PinChecker(ref pinCode) is false);
+
+            do
+            {
+                Console.Write("Please enter the phone number:");
+                phoneNum = Console.ReadLine();
+
+            } while (PhoneNumChecker(ref phoneNum) is false);
+
+            do
+            {
+
+                Console.WriteLine("Please Select the position");
+
+            } while (PositionChoicer() == string.Empty);
+
+            do
+            {
+                Console.WriteLine("Please Select the salary");
+                check = false;
+                try
+                {
+                    salary = int.Parse(Console.ReadLine());
+                    check = true;
+                }
+                catch
+                {
+                    check = false;
+                }
+
+            } while (SalaryChecker(ref salary) is false || check is false);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"{name},{surname} has been added");
+            Console.ForegroundColor= ConsoleColor.White;
 
         }
+
 
         static bool NameChecker(ref string name)
         {
@@ -215,6 +306,7 @@ namespace ConsoleApp1
             }
             else
             {
+
                 return true;
             }
         }
@@ -293,30 +385,31 @@ namespace ConsoleApp1
                     }
                 }
             }
-            return true;    
+            return true;
         }
         static bool SalaryChecker(ref int salary)
         {
-            if(salary > 1500 && salary < 5000)
+            if (salary < 1500 || salary > 5000)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
 
         }
         static string PositionChoicer()
         {
             string[] positions = { "HR", "Audit", "Engineer" };
-
+            bool check = false;
 
             for (int i = 0; i < positions.Length; i++)
             {
                 Console.WriteLine($"{i + 1}-{positions[i]}");
             }
             string profChoice = Console.ReadLine();
+
             if (profChoice == "1")
             {
                 Console.WriteLine($"You have chosen {positions[0]}");
@@ -328,18 +421,19 @@ namespace ConsoleApp1
                 Console.WriteLine($"You have chosen {positions[1]}");
                 return positions[1];
 
-
             }
             if (profChoice == "3")
             {
                 Console.WriteLine($"You have chosen {positions[2]}");
                 return positions[2];
-
             }
             else
             {
-                return positions[0];
+                return string.Empty;
             }
+
+
+
 
 
         }
